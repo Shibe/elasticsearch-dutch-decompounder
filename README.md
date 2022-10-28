@@ -1,4 +1,6 @@
 # Dutch compound word token filter
+### Compatible verions
+Only `7.17.7`
 
 ### Adding the plugin
 Generate a zip containing the plugin:
@@ -15,7 +17,8 @@ Start ElasticSearch with: `ES_JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,serve
 Create a new remote debugging configuration that attaches to a remote JVM.
 
 ### ElasticSearch example
-```
+
+```json
 GET _analyze
 {
   "tokenizer": "whitespace",
@@ -31,7 +34,7 @@ GET _analyze
 ```
 
 Outputs
-```
+```json
 {
   "tokens" : [
     {
