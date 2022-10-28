@@ -1,5 +1,5 @@
 # Dutch compound word token filter
-### Compatible verions
+### Compatible versions
 Only `7.17.7`
 
 ### Adding the plugin
