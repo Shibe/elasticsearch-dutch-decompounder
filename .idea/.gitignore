@@ -1,0 +1,21 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Hidden files
+**/.*           # ignore all hidden files
+!**/.gitignore  # keep git ignores even though hidden
+.DS_Store       # Ignore .DS_Store
+
+
+# Build
+target/
+gradle
+.gradle
+.history
+
+# IntelliJ
+.idea/
+.idea/*
+*.ipr
+*.iws
