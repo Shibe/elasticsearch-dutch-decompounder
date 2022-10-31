@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,11 +24,9 @@ class WordDecompounderTest {
     static void setUp() throws IOException {
         Path dictionaryPath = Paths.get("src/test/resources/title-and-taxonomy-words-3chars.txt");
         dictionary = new HashSet<>(Files.readAllLines(dictionaryPath));
-        // System.out.println(dictionary.stream().limit(50).collect(Collectors.toList()));
 
         Path termsPath = Paths.get("src/test/resources/ingredients-with-no-matches-product-service-list.txt");
         terms = Files.readAllLines(termsPath);
-        // System.out.println(terms.stream().limit(50).collect(Collectors.toList()));
     }
 
     @Test
@@ -47,7 +46,7 @@ class WordDecompounderTest {
         CharTermAttribute term = new CharTermAttributeImpl();
         term.append("roodbaarsfilet");
         List<CompoundToken> tokens = decompounder.decompose(term, 0, term.length());
-        Assertions.assertEquals(toTokenText(tokens), List.of("rood", "roodbaars", "roodbaarsfilet", "fil", "filet", "let"));
+        Assertions.assertEquals(toTokenText(tokens), Arrays.asList("rood", "roodbaars", "roodbaarsfilet", "fil", "filet", "let"));
     }
 
     private List<CharSequence> toTokenText(List<CompoundToken> tokens) {

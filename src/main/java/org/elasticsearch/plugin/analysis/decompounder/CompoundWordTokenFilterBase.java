@@ -32,20 +32,20 @@ public abstract class CompoundWordTokenFilterBase extends TokenFilter {
 
     protected CompoundWordTokenFilterBase(TokenStream input, CharArraySet dictionary, int minWordSize, int minSubwordSize, int maxSubwordSize, boolean onlyLongestMatch) {
         super(input);
-        this.tokens=new LinkedList<>();
+        this.tokens = new LinkedList<>();
         if (minWordSize < 0) {
             throw new IllegalArgumentException("minWordSize cannot be negative");
         }
-        this.minWordSize=minWordSize;
+        this.minWordSize = minWordSize;
         if (minSubwordSize < 0) {
             throw new IllegalArgumentException("minSubwordSize cannot be negative");
         }
-        this.minSubwordSize=minSubwordSize;
+        this.minSubwordSize = minSubwordSize;
         if (maxSubwordSize < 0) {
             throw new IllegalArgumentException("maxSubwordSize cannot be negative");
         }
-        this.maxSubwordSize=maxSubwordSize;
-        this.onlyLongestMatch=onlyLongestMatch;
+        this.maxSubwordSize = maxSubwordSize;
+        this.onlyLongestMatch = onlyLongestMatch;
         this.dictionary = dictionary;
     }
 
