@@ -2,12 +2,12 @@ package org.elasticsearch.plugin.analysis.decompounder;
 
 import java.io.IOException;
 import java.util.LinkedList;
+
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
-import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 
 public abstract class CompoundWordTokenFilterBase extends TokenFilter {
 
@@ -26,11 +26,17 @@ public abstract class CompoundWordTokenFilterBase extends TokenFilter {
 
     protected final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     protected final OffsetAttribute offsetAtt = addAttribute(OffsetAttribute.class);
-    private final PositionIncrementAttribute posIncAtt = addAttribute(PositionIncrementAttribute.class);
 
     private State current;
 
-    protected CompoundWordTokenFilterBase(TokenStream input, CharArraySet dictionary, int minWordSize, int minSubwordSize, int maxSubwordSize, boolean onlyLongestMatch) {
+    protected CompoundWordTokenFilterBase(
+            TokenStream input,
+            CharArraySet dictionary,
+            int minWordSize,
+            int minSubwordSize,
+            int maxSubwordSize,
+            boolean onlyLongestMatch
+    ) {
         super(input);
         this.tokens = new LinkedList<>();
         if (minWordSize < 0) {

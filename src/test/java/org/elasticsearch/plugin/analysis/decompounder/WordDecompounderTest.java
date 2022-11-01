@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttributeImpl;
 import org.junit.jupiter.api.Assertions;
@@ -22,16 +23,16 @@ class WordDecompounderTest {
 
     @BeforeAll
     static void setUp() throws IOException {
-        Path dictionaryPath = Paths.get("src/test/resources/title-and-taxonomy-words-3chars.txt");
+        Path dictionaryPath = Paths.get("src/test/resources/dictionary.txt");
         dictionary = new HashSet<>(Files.readAllLines(dictionaryPath));
 
-        Path termsPath = Paths.get("src/test/resources/ingredients-with-no-matches-product-service-list.txt");
+        Path termsPath = Paths.get("src/test/resources/compound-terms.txt");
         terms = Files.readAllLines(termsPath);
     }
 
     @Test
     void decomposeSingleLongest() {
-        WordDecompounder decompounder = new WordDecompounder(3, 3, 20, true, dictionary);
+        WordDecompounder decompounder = new WordDecompounder(3, 20, true, dictionary);
 
         CharTermAttribute term = new CharTermAttributeImpl();
         term.append("roodbaarsfilet");
@@ -41,7 +42,7 @@ class WordDecompounderTest {
 
     @Test
     void decomposeSingle() {
-        WordDecompounder decompounder = new WordDecompounder(3, 3, 20, false, dictionary);
+        WordDecompounder decompounder = new WordDecompounder(3, 20, false, dictionary);
 
         CharTermAttribute term = new CharTermAttributeImpl();
         term.append("roodbaarsfilet");
@@ -55,27 +56,25 @@ class WordDecompounderTest {
 
     @Test
     void decomposeListLongest() {
-        WordDecompounder decompounder = new WordDecompounder(3, 3, 20, true, dictionary);
+        WordDecompounder decompounder = new WordDecompounder(3, 20, true, dictionary);
         decomposeList(decompounder);
     }
 
     @Test
     void decomposeList() {
-        WordDecompounder decompounder = new WordDecompounder(3, 3, 20, false, dictionary);
+        WordDecompounder decompounder = new WordDecompounder(3, 20, false, dictionary);
         decomposeList(decompounder);
     }
 
     private void decomposeList(WordDecompounder decomposer) {
-        terms.subList(0, 50).stream()
-                .map(it ->
-                        {
+        terms.stream()
+                .map(it -> {
                             CharTermAttributeImpl term = new CharTermAttributeImpl();
                             term.append(it);
                             return term;
                         }
                 )
-                .forEach(it ->
-                        {
+                .forEach(it -> {
                             System.out.print(it + "\t -> \t");
                             System.out.println(decomposer.decompose(it, 0, it.length()));
                         }

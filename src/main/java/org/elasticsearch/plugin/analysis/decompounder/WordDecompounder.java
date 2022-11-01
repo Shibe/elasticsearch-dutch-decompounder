@@ -8,23 +8,18 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 public class WordDecompounder {
     private CharArraySet dictionary;
-    private final int minWordSize;
     private final int minSubwordSize;
     private final int maxSubwordSize;
     private final boolean onlyLongestMatch;
 
-    public WordDecompounder(int minWordSize, int minSubwordSize, int maxSubwordSize, boolean onlyLongestMatch, Set<String> dictionary) {
-
-        this.minWordSize = minWordSize;
+    public WordDecompounder(int minSubwordSize, int maxSubwordSize, boolean onlyLongestMatch, Set<String> dictionary) {
         this.minSubwordSize = minSubwordSize;
         this.maxSubwordSize = maxSubwordSize;
         this.onlyLongestMatch = onlyLongestMatch;
         this.dictionary = new CharArraySet(dictionary, true);
     }
 
-    public WordDecompounder(int minWordSize, int minSubwordSize, int maxSubwordSize, boolean onlyLongestMatch, CharArraySet dictionary) {
-
-        this.minWordSize = minWordSize;
+    public WordDecompounder(int minSubwordSize, int maxSubwordSize, boolean onlyLongestMatch, CharArraySet dictionary) {
         this.minSubwordSize = minSubwordSize;
         this.maxSubwordSize = maxSubwordSize;
         this.onlyLongestMatch = onlyLongestMatch;

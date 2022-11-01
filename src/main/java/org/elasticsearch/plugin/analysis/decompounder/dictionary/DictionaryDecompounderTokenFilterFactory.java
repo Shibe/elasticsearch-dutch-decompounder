@@ -21,7 +21,12 @@ public class DictionaryDecompounderTokenFilterFactory extends AbstractTokenFilte
     private final Path wordListFile;
     private List<String> wordList;
 
-    public DictionaryDecompounderTokenFilterFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
+    public DictionaryDecompounderTokenFilterFactory(
+            IndexSettings indexSettings,
+            Environment environment,
+            String name,
+            Settings settings
+    ) {
         super(indexSettings, name, settings);
         onlyLongestMatch = settings.getAsBoolean("only_longest_match", false);
         wordList = settings.getAsList("word_list", Collections.emptyList());
