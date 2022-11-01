@@ -19,7 +19,6 @@ Create a new remote debugging configuration that attaches to a remote JVM.
 ### ElasticSearch example
 
 ```json
-GET _analyze
 {
   "tokenizer": "whitespace",
   "filter": [
