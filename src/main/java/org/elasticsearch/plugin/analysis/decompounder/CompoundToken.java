@@ -4,13 +4,19 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 public class CompoundToken {
     public final CharSequence txt;
-    public final int startOffset, endOffset;
+    public final int offset, startOffset, endOffset;
 
-    public CompoundToken(int offset, int length, int startOffset, CharTermAttribute term) {
+    public CompoundToken(
+        int offset,
+        int length,
+        int startOffset,
+        int endOffset,
+        CharTermAttribute term
+    ) {
         this.txt = term.subSequence(offset, offset + length);
-
-        this.startOffset = startOffset + offset;
-        this.endOffset = startOffset + offset + txt.length();
+        this.offset = offset;
+        this.startOffset = startOffset;
+        this.endOffset = endOffset;
     }
 
     @Override

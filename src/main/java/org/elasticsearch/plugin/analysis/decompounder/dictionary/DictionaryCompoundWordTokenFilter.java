@@ -29,7 +29,7 @@ public class DictionaryCompoundWordTokenFilter extends CompoundWordTokenFilterBa
     @Override
     protected void decompose() {
         int startOffset = offsetAtt.startOffset();
-        List<CompoundToken> decomposed = decompounder.decompose(termAtt, startOffset, startOffset + termAtt.length());
+        List<CompoundToken> decomposed = decompounder.decompose(termAtt, startOffset, offsetAtt.endOffset());
         tokens.addAll(decomposed);
     }
 }
