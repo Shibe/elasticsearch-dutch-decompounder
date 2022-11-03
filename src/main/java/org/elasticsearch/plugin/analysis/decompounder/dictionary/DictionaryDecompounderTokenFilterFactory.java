@@ -56,7 +56,6 @@ public class DictionaryDecompounderTokenFilterFactory extends AbstractTokenFilte
                 throw new IllegalArgumentException("Exception while reading word_list_path.", e);
             }
         }
-
         CharArraySet dictionary = new CharArraySet(wordList, true);
         return new DictionaryCompoundWordTokenFilter(
                 tokenStream,
