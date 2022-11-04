@@ -1,20 +1,17 @@
 package org.elasticsearch.plugin.analysis.decompounder;
 
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttributeImpl;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.analysis.tokenattributes.CharTermAttributeImpl;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 class WordDecompounderTest {
 
@@ -32,7 +29,7 @@ class WordDecompounderTest {
 
     @Test
     void decomposeSingleLongest() {
-        WordDecompounder decompounder = new WordDecompounder(3, 20, true, dictionary);
+        WordDecompounder decompounder = new WordDecompounder(3, dictionary);
 
         CharTermAttribute term = new CharTermAttributeImpl();
         term.append("roodbaarsfilet");
@@ -41,28 +38,14 @@ class WordDecompounderTest {
     }
 
     @Test
-    void decomposeSingle() {
-        WordDecompounder decompounder = new WordDecompounder(3, 20, false, dictionary);
-
-        CharTermAttribute term = new CharTermAttributeImpl();
-        term.append("roodbaarsfilet");
-        List<CompoundToken> tokens = decompounder.decompose(term, 0, term.length());
-        Assertions.assertEquals(toTokenText(tokens), Arrays.asList("rood", "roodbaars", "roodbaarsfilet", "fil", "filet", "let"));
-    }
-
-    private List<CharSequence> toTokenText(List<CompoundToken> tokens) {
-        return tokens.stream().map(it -> it.txt).collect(Collectors.toList());
-    }
-
-    @Test
     void decomposeListLongest() {
-        WordDecompounder decompounder = new WordDecompounder(3, 20, true, dictionary);
+        WordDecompounder decompounder = new WordDecompounder(3, dictionary);
         decomposeList(decompounder);
     }
 
     @Test
     void decomposeList() {
-        WordDecompounder decompounder = new WordDecompounder(3, 20, false, dictionary);
+        WordDecompounder decompounder = new WordDecompounder(3, dictionary);
         decomposeList(decompounder);
     }
 
