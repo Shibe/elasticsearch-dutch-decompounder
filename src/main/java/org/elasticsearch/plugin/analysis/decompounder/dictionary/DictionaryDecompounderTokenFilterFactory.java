@@ -17,7 +17,6 @@ import org.elasticsearch.plugin.analysis.decompounder.CompoundWordTokenFilterBas
 
 public class DictionaryDecompounderTokenFilterFactory extends AbstractTokenFilterFactory {
 
-    private final boolean onlyLongestMatch;
     private final Path wordListFile;
     private List<String> wordList;
 
@@ -28,9 +27,8 @@ public class DictionaryDecompounderTokenFilterFactory extends AbstractTokenFilte
             Settings settings
     ) {
         super(indexSettings, name, settings);
-        onlyLongestMatch = settings.getAsBoolean("only_longest_match", false);
-        wordList = settings.getAsList("word_list", Collections.emptyList());
 
+        wordList = settings.getAsList("word_list", Collections.emptyList());
         String wordListPath = settings.get("word_list_path", null);
         wordListFile = resolveFile(environment, wordListPath);
     }
@@ -61,9 +59,7 @@ public class DictionaryDecompounderTokenFilterFactory extends AbstractTokenFilte
                 tokenStream,
                 dictionary,
                 CompoundWordTokenFilterBase.DEFAULT_MIN_WORD_SIZE,
-                CompoundWordTokenFilterBase.DEFAULT_MIN_SUBWORD_SIZE,
-                CompoundWordTokenFilterBase.DEFAULT_MAX_SUBWORD_SIZE,
-                onlyLongestMatch
+                CompoundWordTokenFilterBase.DEFAULT_MIN_SUBWORD_SIZE
         );
     }
 }

@@ -15,21 +15,22 @@ public class DictionaryCompoundWordTokenFilter extends CompoundWordTokenFilterBa
             TokenStream input,
             CharArraySet dictionary,
             int minWordSize,
-            int minSubwordSize,
-            int maxSubwordSize,
-            boolean onlyLongestMatch
+            int minSubwordSize
     ) {
-        super(input, dictionary, minWordSize, minSubwordSize, maxSubwordSize, onlyLongestMatch);
+        super(input, dictionary, minWordSize, minSubwordSize);
         if (dictionary == null) {
             throw new IllegalArgumentException("dictionary must not be null");
         }
-        decompounder = new WordDecompounder(minSubwordSize, maxSubwordSize, onlyLongestMatch, dictionary);
+        decompounder = new WordDecompounder(minSubwordSize, dictionary);
     }
 
     @Override
     protected void decompose() {
-        int startOffset = offsetAtt.startOffset();
-        List<CompoundToken> decomposed = decompounder.decompose(termAtt, startOffset, offsetAtt.endOffset());
+        List<CompoundToken> decomposed = decompounder.decompose(
+                termAtt,
+                offsetAtt.startOffset(),
+                offsetAtt.endOffset()
+        );
         tokens.addAll(decomposed);
     }
 }

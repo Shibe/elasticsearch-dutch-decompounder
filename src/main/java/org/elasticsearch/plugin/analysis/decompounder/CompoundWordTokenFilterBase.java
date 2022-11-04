@@ -1,29 +1,23 @@
 package org.elasticsearch.plugin.analysis.decompounder;
 
-import java.io.IOException;
-import java.util.LinkedList;
-
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 
+import java.io.IOException;
+import java.util.LinkedList;
+
 public abstract class CompoundWordTokenFilterBase extends TokenFilter {
 
     public static final int DEFAULT_MIN_WORD_SIZE = 5;
-
     public static final int DEFAULT_MIN_SUBWORD_SIZE = 2;
-
-    public static final int DEFAULT_MAX_SUBWORD_SIZE = 15;
 
     protected final CharArraySet dictionary;
     protected final LinkedList<CompoundToken> tokens;
     protected final int minWordSize;
     protected final int minSubwordSize;
-    protected final int maxSubwordSize;
-    protected final boolean onlyLongestMatch;
-
     protected final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     protected final OffsetAttribute offsetAtt = addAttribute(OffsetAttribute.class);
 
@@ -33,9 +27,7 @@ public abstract class CompoundWordTokenFilterBase extends TokenFilter {
             TokenStream input,
             CharArraySet dictionary,
             int minWordSize,
-            int minSubwordSize,
-            int maxSubwordSize,
-            boolean onlyLongestMatch
+            int minSubwordSize
     ) {
         super(input);
         this.tokens = new LinkedList<>();
@@ -47,11 +39,6 @@ public abstract class CompoundWordTokenFilterBase extends TokenFilter {
             throw new IllegalArgumentException("minSubwordSize cannot be negative");
         }
         this.minSubwordSize = minSubwordSize;
-        if (maxSubwordSize < 0) {
-            throw new IllegalArgumentException("maxSubwordSize cannot be negative");
-        }
-        this.maxSubwordSize = maxSubwordSize;
-        this.onlyLongestMatch = onlyLongestMatch;
         this.dictionary = dictionary;
     }
 
