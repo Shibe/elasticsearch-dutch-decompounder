@@ -1,6 +1,7 @@
 package org.elasticsearch.plugin.analysis.decompounder.dictionary;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
@@ -26,7 +27,7 @@ public class DictionaryDecompounderTokenFilterFactory extends AbstractTokenFilte
             String name,
             Settings settings
     ) {
-        super(indexSettings, name, settings);
+        super(name, settings);
 
         wordList = settings.getAsList("word_list", Collections.emptyList());
         String wordListPath = settings.get("word_list_path", null);
@@ -49,7 +50,7 @@ public class DictionaryDecompounderTokenFilterFactory extends AbstractTokenFilte
         if (wordListFile != null) {
             try {
                 InputStream in = Files.newInputStream(wordListFile);
-                wordList = Collections.unmodifiableList(IOUtils.readLines(in, "UTF-8"));
+                wordList = Collections.unmodifiableList(IOUtils.readLines(in, StandardCharsets.UTF_8));
             } catch (Exception e) {
                 throw new IllegalArgumentException("Exception while reading word_list_path.", e);
             }
